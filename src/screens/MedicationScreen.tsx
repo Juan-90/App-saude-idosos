@@ -1,102 +1,119 @@
-// src/screens/MedicationScreen.tsx
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, Button, TextInput, FlatList } from 'react-native';
+import { View, Text, TextInput, Button, Alert, FlatList } from 'react-native';
 
-interface Medication {
-  id: number;
-  name: string;
-  dose: string;
-  time: string;
-}
-
-const MedicationScreen = ({ navigation }: any) => {
-  const [medications, setMedications] = useState<Medication[]>([]);
-  const [name, setName] = useState('');
-  const [dose, setDose] = useState('');
+const MedicationScreen = () => {
+  const [medicationName, setMedicationName] = useState('');
+  const [dosage, setDosage] = useState('');
   const [time, setTime] = useState('');
+  const [medications, setMedications] = useState([]);
 
-  const addMedication = () => {
-    if (name && dose && time) {
+  const validateForm = () => {
+    if (!medicationName.trim()) {
+      Alert.alert('Erro', 'Por favor, insira o nome da medicação.');
+      return false;
+    }
+
+    if (!dosage || isNaN(Number(dosage)) || Number(dosage) <= 0) {
+      Alert.alert('Erro', 'Por favor, insira uma dosagem válida.');
+      return false;
+    }
+
+    if (!time.trim() || !/^\d{2}:\d{2}$/.test(time)) {
+      Alert.alert('Erro', 'Por favor, insira um horário válido no formato HH:MM.');
+      return false;
+    }
+
+    return true;
+  };
+
+  const handleSubmit = () => {
+    if (validateForm()) {
       const newMedication = {
-        id: medications.length + 1,
-        name,
-        dose,
+        id: Date.now().toString(),
+        name: medicationName,
+        dosage,
         time,
       };
-      setMedications([...medications, newMedication]);
-      setName('');
-      setDose('');
+
+      setMedications((prevMedications) => [...prevMedications, newMedication]);
+      setMedicationName('');
+      setDosage('');
       setTime('');
+      Alert.alert('Sucesso', 'Medicação cadastrada com sucesso!');
     }
   };
 
-  return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Medicações</Text>
+  const renderMedication = ({ item }) => (
+    <View
+      style={{
+        borderWidth: 1,
+        borderColor: '#ddd',
+        padding: 10,
+        marginVertical: 5,
+      }}
+    >
+      <Text>Nome: {item.name}</Text>
+      <Text>Dosagem: {item.dosage} mg</Text>
+      <Text>Horário: {item.time}</Text>
+    </View>
+  );
 
+  return (
+    <View style={{ padding: 20 }}>
+      <Text>Nome da Medicação</Text>
       <TextInput
-        style={styles.input}
-        placeholder="Nome da Medicação"
-        value={name}
-        onChangeText={setName}
+        value={medicationName}
+        onChangeText={setMedicationName}
+        placeholder="Nome da medicação"
+        style={{
+          borderWidth: 1,
+          borderColor: '#ddd',
+          marginVertical: 5,
+          padding: 10,
+        }}
       />
+
+      <Text>Dosagem (mg)</Text>
       <TextInput
-        style={styles.input}
-        placeholder="Dose"
-        value={dose}
-        onChangeText={setDose}
+        value={dosage}
+        onChangeText={setDosage}
+        keyboardType="numeric"
+        placeholder="Dosagem"
+        style={{
+          borderWidth: 1,
+          borderColor: '#ddd',
+          marginVertical: 5,
+          padding: 10,
+        }}
       />
+
+      <Text>Horário (HH:MM)</Text>
       <TextInput
-        style={styles.input}
-        placeholder="Horário"
         value={time}
         onChangeText={setTime}
+        placeholder="Horário"
+        style={{
+          borderWidth: 1,
+          borderColor: '#ddd',
+          marginVertical: 5,
+          padding: 10,
+        }}
       />
 
-      <Button title="Adicionar Medicação" onPress={addMedication} />
+      <Button title="Salvar Medicação" onPress={handleSubmit} />
 
-      <FlatList
-        data={medications}
-        renderItem={({ item }) => (
-          <View style={styles.medicationItem}>
-            <Text>{item.name}</Text>
-            <Text>{item.dose}</Text>
-            <Text>{item.time}</Text>
-          </View>
-        )}
-        keyExtractor={(item) => item.id.toString()}
-      />
-
-      <Button title="Voltar para Home" onPress={() => navigation.goBack()} />
+      <Text style={{ marginTop: 20, fontWeight: 'bold' }}>Medicações Cadastradas:</Text>
+      {medications.length > 0 ? (
+        <FlatList
+          data={medications}
+          renderItem={renderMedication}
+          keyExtractor={(item) => item.id}
+        />
+      ) : (
+        <Text style={{ marginTop: 10 }}>Nenhuma medicação cadastrada.</Text>
+      )}
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: 16,
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    marginBottom: 20,
-  },
-  input: {
-    width: '80%',
-    padding: 10,
-    marginBottom: 10,
-    borderWidth: 1,
-    borderColor: '#ccc',
-    borderRadius: 5,
-  },
-  medicationItem: {
-    padding: 10,
-    borderBottomWidth: 1,
-    borderColor: '#ddd',
-  },
-});
 
 export default MedicationScreen;
