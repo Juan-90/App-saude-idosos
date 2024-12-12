@@ -1,17 +1,35 @@
+// src/screens/HomeScreen.tsx
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, Button } from 'react-native';
 
-export default function HomeScreen() {
+const HomeScreen = ({ navigation }: any) => {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Bem-vindo ao App Saúde</Text>
-      <Text style={styles.subtitle}>Ajude-se a lembrar de seus remédios!</Text>
+      <Text style={styles.title}>Bem-vindo ao App Saúde de Idosos</Text>
+      <Button 
+        title="Ver Medicações"
+        onPress={() => navigation.navigate('Medicações')}
+      />
+      <Button 
+        title="Ver Monitoramento"
+        onPress={() => navigation.navigate('Monitoramento')}
+      />
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
-  container: { flex: 1, justifyContent: 'center', alignItems: 'center' },
-  title: { fontSize: 24, fontWeight: 'bold' },
-  subtitle: { fontSize: 16, color: 'gray', marginTop: 10 },
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 16,
+  },
+  title: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginBottom: 20,
+  },
 });
+
+export default HomeScreen;
