@@ -1,19 +1,15 @@
-// src/screens/HomeScreen.tsx
 import React from 'react';
-import { View, Text, StyleSheet, Button } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
+import { NavigationProp } from '@react-navigation/native';
 
-const HomeScreen = ({ navigation }: any) => {
+type Props = {
+  navigation: NavigationProp<any>;
+};
+
+const HomeScreen = ({ navigation }: Props) => {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Bem-vindo ao App Saúde de Idosos</Text>
-      <Button 
-        title="Ver Medicações"
-        onPress={() => navigation.navigate('Medicações')}
-      />
-      <Button 
-        title="Ver Monitoramento"
-        onPress={() => navigation.navigate('Monitoramento')}
-      />
+      <Text style={styles.text}>Bem-vindo à tela inicial!</Text>
     </View>
   );
 };
@@ -23,12 +19,11 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    padding: 16,
+    backgroundColor: '#f5f5f5',
   },
-  title: {
-    fontSize: 24,
+  text: {
+    fontSize: 18,
     fontWeight: 'bold',
-    marginBottom: 20,
   },
 });
 

@@ -1,96 +1,83 @@
-import React, { useState } from 'react';
-import { View, Text, TextInput, Button, Alert, FlatList } from 'react-native';
+// Importações necessárias
+import React from 'react';
+import { View, Text, TextInput, Button, StyleSheet, Alert, FlatList, TouchableOpacity } from 'react-native';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons'; // Biblioteca para ícones
 
-type Medication = {
-  id: string;
-  name: string;
-  dosage: string;
-  time: string;
-};
-
-const MedicationScreen = () => {
-  const [medicationName, setMedicationName] = useState('');
-  const [dosage, setDosage] = useState('');
-  const [time, setTime] = useState('');
-  const [medications, setMedications] = useState<Medication[]>([]); // Tipo explícito aqui
-
-  const validateForm = () => {
-    if (!medicationName.trim()) {
-      Alert.alert('Erro', 'Por favor, insira o nome da medicação.');
-      return false;
-    }
-
-    if (!dosage || isNaN(Number(dosage)) || Number(dosage) <= 0) {
-      Alert.alert('Erro', 'Por favor, insira uma dosagem válida.');
-      return false;
-    }
-
-    if (!time.trim()) {
-      Alert.alert('Erro', 'Por favor, insira o horário da medicação.');
-      return false;
-    }
-
-    return true;
-  };
-
-  const handleSubmit = () => {
-    if (validateForm()) {
-      const newMedication: Medication = {
-        id: Date.now().toString(),
-        name: medicationName,
-        dosage,
-        time,
-      };
-
-      setMedications((prevMedications) => [...prevMedications, newMedication]);
-      Alert.alert('Sucesso', 'Medicação cadastrada com sucesso!');
-
-      // Limpar os campos após adicionar
-      setMedicationName('');
-      setDosage('');
-      setTime('');
-    }
-  };
+const App = () => {
+  const medications = [
+    { id: '1', name: 'Paracetamol', dosage: '500mg', time: '08:00' },
+    { id: '2', name: 'Ibuprofeno', dosage: '200mg', time: '14:00' },
+  ];
 
   return (
-    <View>
-      <Text>Nome da Medicação</Text>
-      <TextInput
-        value={medicationName}
-        onChangeText={setMedicationName}
-        placeholder="Nome da medicação"
-      />
+    <View style={styles.container}>
+      <Text style={styles.header}>Meu App de Saúde</Text>
 
-      <Text>Dosagem</Text>
-      <TextInput
-        value={dosage}
-        onChangeText={setDosage}
-        keyboardType="numeric"
-        placeholder="Dosagem"
-      />
-
-      <Text>Horário</Text>
-      <TextInput
-        value={time}
-        onChangeText={setTime}
-        placeholder="Horário (ex.: 08:00)"
-      />
-
-      <Button title="Salvar Medicação" onPress={handleSubmit} />
-
+      {/* Lista de Medicamentos */}
       <FlatList
         data={medications}
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
-          <View>
-            <Text>Nome: {item.name}</Text>
-            <Text>Dosagem: {item.dosage}</Text>
-            <Text>Horário: {item.time}</Text>
-          </View>
+          <TouchableOpacity style={styles.medicationCard}>
+            <Icon name="pill" size={30} color={styles.iconColor.color} />
+            <View style={styles.medicationDetails}>
+              <Text style={styles.medicationName}>{item.name}</Text>
+              <Text style={styles.medicationInfo}>Dosagem: {item.dosage}</Text>
+              <Text style={styles.medicationInfo}>Horário: {item.time}</Text>
+            </View>
+          </TouchableOpacity>
         )}
       />
+
+      <Button title="Adicionar Medicação" color={styles.button.color} onPress={() => Alert.alert('Botão clicado!')} />
     </View>
   );
 };
 
-export default MedicationScreen;
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#E0F7FA', // Fundo suave (Turquesa claro)
+    padding: 16,
+  },
+  header: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: '#00796B', // Verde escuro
+    textAlign: 'center',
+    marginBottom: 16,
+  },
+  medicationCard: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#FFFFFF', // Branco
+    padding: 12,
+    borderRadius: 8,
+    marginBottom: 12,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.2,
+    shadowRadius: 4,
+    elevation: 2,
+  },
+  medicationDetails: {
+    marginLeft: 12,
+  },
+  medicationName: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#0288D1', // Azul
+  },
+  medicationInfo: {
+    fontSize: 14,
+    color: '#455A64', // Cinza escuro
+  },
+  button: {
+    color: '#00796B', // Verde escuro
+  },
+  iconColor: {
+    color: '#0288D1', // Azul para ícones
+  },
+});
+
+export default App;

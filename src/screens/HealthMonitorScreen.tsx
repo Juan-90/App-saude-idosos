@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button, Alert, ScrollView, StyleSheet } from 'react-native';
+import { View, Text, TextInput, Alert, ScrollView, StyleSheet, TouchableOpacity } from 'react-native';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const HealthMonitorScreen = () => {
   const [weight, setWeight] = useState('');
@@ -91,50 +92,65 @@ const HealthMonitorScreen = () => {
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      <Text style={styles.label}>Peso (kg)</Text>
-      <TextInput
-        value={weight}
-        onChangeText={setWeight}
-        keyboardType="numeric"
-        placeholder="Peso"
-        style={styles.input}
-      />
+      <View style={styles.inputGroup}>
+        <MaterialCommunityIcons name="weight-kilogram" size={24} color="#4CAF50" />
+        <TextInput
+          value={weight}
+          onChangeText={setWeight}
+          keyboardType="numeric"
+          placeholder="Peso (kg)"
+          style={styles.input}
+        />
+      </View>
+      
+      <View style={styles.inputGroup}>
+        <MaterialCommunityIcons name="human-male-height" size={24} color="#4CAF50" />
+        <TextInput
+          value={height}
+          onChangeText={setHeight}
+          keyboardType="numeric"
+          placeholder="Altura (m)"
+          style={styles.input}
+        />
+      </View>
+      
+      <View style={styles.inputGroup}>
+        <MaterialCommunityIcons name="heart-pulse" size={24} color="#4CAF50" />
+        <TextInput
+          value={systolicPressure}
+          onChangeText={setSystolicPressure}
+          keyboardType="numeric"
+          placeholder="Pressão Sistólica"
+          style={styles.input}
+        />
+      </View>
+      
+      <View style={styles.inputGroup}>
+        <MaterialCommunityIcons name="heart-pulse" size={24} color="#4CAF50" />
+        <TextInput
+          value={diastolicPressure}
+          onChangeText={setDiastolicPressure}
+          keyboardType="numeric"
+          placeholder="Pressão Diastólica"
+          style={styles.input}
+        />
+      </View>
 
-      <Text style={styles.label}>Altura (m)</Text>
-      <TextInput
-        value={height}
-        onChangeText={setHeight}
-        keyboardType="numeric"
-        placeholder="Altura"
-        style={styles.input}
-      />
+      <View style={styles.inputGroup}>
+        <MaterialCommunityIcons name="thermometer" size={24} color="#4CAF50" />
+        <TextInput
+          value={temperature}
+          onChangeText={setTemperature}
+          keyboardType="numeric"
+          placeholder="Temperatura (°C)"
+          style={styles.input}
+        />
+      </View>
 
-      <Text style={styles.label}>Pressão Arterial</Text>
-      <TextInput
-        value={systolicPressure}
-        onChangeText={setSystolicPressure}
-        keyboardType="numeric"
-        placeholder="Pressão Sistólica (mmHg)"
-        style={styles.input}
-      />
-      <TextInput
-        value={diastolicPressure}
-        onChangeText={setDiastolicPressure}
-        keyboardType="numeric"
-        placeholder="Pressão Diastólica (mmHg)"
-        style={styles.input}
-      />
-
-      <Text style={styles.label}>Temperatura Corporal (°C)</Text>
-      <TextInput
-        value={temperature}
-        onChangeText={setTemperature}
-        keyboardType="numeric"
-        placeholder="Temperatura"
-        style={styles.input}
-      />
-
-      <Button title="Salvar Monitoramento" onPress={handleSubmit} />
+      <TouchableOpacity style={styles.button} onPress={handleSubmit}>
+        <MaterialCommunityIcons name="check" size={24} color="#fff" />
+        <Text style={styles.buttonText}>Salvar Monitoramento</Text>
+      </TouchableOpacity>
     </ScrollView>
   );
 };
@@ -142,17 +158,36 @@ const HealthMonitorScreen = () => {
 const styles = StyleSheet.create({
   container: {
     padding: 20,
+    backgroundColor: '#f0f0f0',
   },
-  label: {
-    marginBottom: 5,
-    fontWeight: 'bold',
-  },
-  input: {
+  inputGroup: {
+    flexDirection: 'row',
+    alignItems: 'center',
     borderWidth: 1,
     borderColor: '#ccc',
-    padding: 10,
-    marginBottom: 15,
     borderRadius: 5,
+    marginBottom: 15,
+    padding: 10,
+    backgroundColor: '#fff',
+  },
+  input: {
+    flex: 1,
+    marginLeft: 10,
+    fontSize: 16,
+  },
+  button: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#4CAF50',
+    padding: 15,
+    borderRadius: 5,
+  },
+  buttonText: {
+    color: '#fff',
+    fontWeight: 'bold',
+    fontSize: 16,
+    marginLeft: 10,
   },
 });
 
