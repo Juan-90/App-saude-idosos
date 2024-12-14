@@ -102,7 +102,7 @@ const HealthMonitorScreen = () => {
           style={styles.input}
         />
       </View>
-      
+
       <View style={styles.inputGroup}>
         <MaterialCommunityIcons name="human-male-height" size={24} color="#4CAF50" />
         <TextInput
@@ -113,7 +113,7 @@ const HealthMonitorScreen = () => {
           style={styles.input}
         />
       </View>
-      
+
       <View style={styles.inputGroup}>
         <MaterialCommunityIcons name="heart-pulse" size={24} color="#4CAF50" />
         <TextInput
@@ -124,7 +124,7 @@ const HealthMonitorScreen = () => {
           style={styles.input}
         />
       </View>
-      
+
       <View style={styles.inputGroup}>
         <MaterialCommunityIcons name="heart-pulse" size={24} color="#4CAF50" />
         <TextInput
@@ -157,8 +157,10 @@ const HealthMonitorScreen = () => {
 
 const styles = StyleSheet.create({
   container: {
+    flexGrow: 1,
     padding: 20,
     backgroundColor: '#f0f0f0',
+    marginTop: 50, // Reposiciona os elementos mais abaixo
   },
   inputGroup: {
     flexDirection: 'row',
@@ -166,7 +168,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#ccc',
     borderRadius: 5,
-    marginBottom: 15,
+    marginBottom: 20, // Mais espaçamento entre os inputs
     padding: 10,
     backgroundColor: '#fff',
   },
@@ -182,6 +184,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#4CAF50',
     padding: 15,
     borderRadius: 5,
+    marginTop: 20, // Mais espaçamento acima do botão
   },
   buttonText: {
     color: '#fff',
