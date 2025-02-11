@@ -159,7 +159,7 @@ const styles = StyleSheet.create({
   container: {
     flexGrow: 1,
     padding: 20,
-    backgroundColor: '#f0f0f0',
+    backgroundColor: '#E0F7FA',
     marginTop: 50, // Reposiciona os elementos mais abaixo
   },
   inputGroup: {

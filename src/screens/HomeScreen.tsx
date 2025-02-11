@@ -9,7 +9,7 @@ type Props = {
 const HomeScreen = ({ navigation }: Props) => {
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>Bem-vindo à tela inicial!</Text>
+      <Text style={styles.text}>Monitore sua Saúde!</Text>
     </View>
   );
 };
@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#f5f5f5',
+    backgroundColor: '#E0F7FA',
   },
   text: {
     fontSize: 18,
