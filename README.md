@@ -84,7 +84,7 @@ Este projeto está licenciado sob a **MIT License**. Você pode usá-lo e modifi
 ### 📧 Contato
 📌 Caso tenha dúvidas ou sugestões, entre em contato:  
 🔗 **GitHub:** [Juan-90](https://github.com/Juan-90)  
-📧 **E-mail:** juan.andrade817@email.com  
+📧 **E-mail:** juan.andrade817@gmail.com  
 
 🚀 *Desenvolvido com paixão por tecnologia!*
 
